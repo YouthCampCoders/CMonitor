@@ -1,0 +1,28 @@
+{
+  "name": "c-monitor",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "repository": "https://github.com/YouthCampCoders/CMonitor.git",
+  "author": "Dokome <1098265675@qq.com>",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@commitlint/cli": "^17.2.0",
+    "@commitlint/config-conventional": "^17.2.0",
+    "@typescript-eslint/eslint-plugin": "^5.42.1",
+    "@typescript-eslint/parser": "^5.42.1",
+    "eslint": "^8.27.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "husky": "^8.0.2",
+    "prettier": "^2.7.1",
+    "typescript": "^4.8.4"
+  },
+  "scripts": {
+    "lint": "eslint src --ext .ts,.js"
+  }
+}

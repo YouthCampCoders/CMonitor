@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "allowUnreachableCode": true, // 执行不到的代码不报错
+    "removeComments": true, // 移除注释
+    "moduleResolution": "node", // 使用哪种模块解析策略
+    "target": "ESNext", // 需要被译成什么版本
+    "module": "ESNext", // 当前使用的语法
+    "lib": ["ES6", "DOM", "ES2021"], // 引入的库文件列表
+    "baseUrl": ".", // 工作根目录,
+    "paths": {} // 可用来定义文件别名的解析方式
+  },
+  "include": ["src"]
+}
