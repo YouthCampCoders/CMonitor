@@ -1,5 +1,3 @@
-/node_modules
-**/node_modules/**/*
-**/dist
-**/build
-/script
+node_modules/**
+dist/**
+build/**
