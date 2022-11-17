@@ -20,5 +20,5 @@ export interface IMetrics {
   /**
    * 评分结果 MetricsRatingText
    */
-  rating: MetricsRatingText
+  rating?: MetricsRatingText
 }

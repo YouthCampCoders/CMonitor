@@ -5,10 +5,15 @@ import {
 } from '../utils'
 import { MetricsName } from '../config'
 import { observe } from '../utils/observe'
-import { getFirstHiddenTime } from '../utils/onHiden'
+import { getFirstHiddenTime } from '../utils/pageLifeCycle'
 import { IMetrics } from '../types/metrics'
 import { getMetricsRating } from '../utils/rating'
+import { ReporterCallBack } from '../types'
+import { MetricsStore } from '../store'
 
+/**
+ * 获取 FCP PerformanceEntry
+ */
 const getFCPEntry = (): Promise<PerformanceEntry> => {
   return new Promise((resolve, reject) => {
     if (!isPerformanceObserverSupported()) {
@@ -33,7 +38,14 @@ const getFCPEntry = (): Promise<PerformanceEntry> => {
   })
 }
 
-export const handleGetFCP = async () => {
+/**
+ * 初始化 FCP 获取
+ */
+export const handleInitFCP = async (
+  reporter: ReporterCallBack,
+  store: MetricsStore,
+  immediately = true
+) => {
   try {
     const entry = await getFCPEntry()
     const metric: IMetrics = {
@@ -43,7 +55,11 @@ export const handleGetFCP = async () => {
       entry
     }
 
-    console.log(metric)
+    if (immediately) {
+      reporter(metric)
+    }
+
+    store.setState(MetricsName.FCP, metric)
   } catch (error) {
     console.error(error)
   }

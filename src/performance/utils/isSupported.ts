@@ -16,7 +16,7 @@ export const isPerformanceObserverSupported = () => {
  * 检查支持情况报错
  */
 export const NotSupportedError = (target: string): Error => {
-  const err = new Error(`browser do not support ${target}`)
+  const err = new Error(`Browser do not support ${target}`)
 
   err.name = 'NotSupportedError'
 
