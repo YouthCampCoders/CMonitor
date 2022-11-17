@@ -1,4 +1,5 @@
-import { sum } from './sum'
+export * from './performance'
+
 interface ITest {
   input: string
   output: string
@@ -12,4 +13,3 @@ const lib: ITest = {
 }
 
 console.log(lib.format)
-console.log(sum(1, 2))
