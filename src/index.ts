@@ -1,6 +1,4 @@
-import { handleGetFCP } from './performance'
-
-handleGetFCP()
+export * from './performance'
 
 interface ITest {
   input: string
