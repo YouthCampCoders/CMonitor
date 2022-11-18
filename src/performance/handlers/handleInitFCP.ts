@@ -11,9 +11,6 @@ import { getMetricsRating } from '../utils/rating'
 import { ReporterCallBack } from '../types'
 import { MetricsStore } from '../store'
 
-/**
- * 获取 FCP PerformanceEntry
- */
 const getFCPEntry = (): Promise<PerformanceEntry> => {
   return new Promise((resolve, reject) => {
     if (!isPerformanceObserverSupported()) {
@@ -38,9 +35,6 @@ const getFCPEntry = (): Promise<PerformanceEntry> => {
   })
 }
 
-/**
- * 初始化 FCP 获取
- */
 export const handleInitFCP = async (
   reporter: ReporterCallBack,
   store: MetricsStore,
