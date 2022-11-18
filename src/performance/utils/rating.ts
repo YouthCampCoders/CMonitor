@@ -6,9 +6,11 @@ import { MetricsRatingText } from '../types/metrics'
  */
 export const getMetricsRating = (
   name: string,
-  value: number
+  value: number,
+  customConfig?: typeof MetricsRating
 ): MetricsRatingText => {
-  const MetricsRatingConfig = MetricsRating[name]
+  const ratingConfig = { ...MetricsRating, ...customConfig }
+  const MetricsRatingConfig = ratingConfig[name]
   const { lower, upper } = MetricsRatingConfig
 
   return value > upper

@@ -1,4 +1,4 @@
-import { onHidenCallBack } from '../types'
+import { EventCallBack } from '../types'
 
 /**
  * 首次隐藏时间
@@ -6,9 +6,9 @@ import { onHidenCallBack } from '../types'
 let firstHiddenTime = document.visibilityState === 'hidden' ? 0 : Infinity
 
 /**
- * 页面 隐藏 / 卸载 监听
+ * pagehide / hidden 监听
  * */
-export const onHidden = (callback: onHidenCallBack, once?: boolean) => {
+export const onHidden = (callback: EventCallBack, once?: boolean) => {
   const handleOnHidden = (event: Event) => {
     if (event.type === 'pagehide' || document.visibilityState === 'hidden') {
       callback(event)
@@ -18,6 +18,7 @@ export const onHidden = (callback: onHidenCallBack, once?: boolean) => {
       }
     }
   }
+
   addEventListener('visibilitychange', handleOnHidden, true)
   addEventListener('pagehide', handleOnHidden, true)
 }
@@ -34,5 +35,23 @@ export const getFirstHiddenTime = () => {
     get now() {
       return firstHiddenTime
     }
+  }
+}
+
+/**
+ * pageshow 监听
+ */
+export const onShow = (callback: EventCallBack, once = true) => {
+  addEventListener('pageshow', callback, { once, capture: true })
+}
+
+/**
+ * 已经加载完的情况下直接执行 未加载完在 pageshow种执行
+ */
+export const AfterLoadOrShow = (callback: EventCallBack, once = true) => {
+  if (document.readyState === 'complete') {
+    setTimeout(callback)
+  } else {
+    addEventListener('pageshow', callback, { once, capture: true })
   }
 }

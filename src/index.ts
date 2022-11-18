@@ -1,4 +1,5 @@
-export * from './performance'
+// export * from './performance'
+import { PerformanceMetrics } from './performance'
 
 interface ITest {
   input: string
@@ -11,5 +12,15 @@ const lib: ITest = {
   output: 'lib',
   format: 'esm'
 }
+
+const p = new PerformanceMetrics()
+p.startMark('a')
+setTimeout(() => {
+  p.endMark('a')
+}, 2000)
+
+setTimeout(() => {
+  console.log(p.getAllMetricsInStore())
+}, 5000)
 
 console.log(lib.format)

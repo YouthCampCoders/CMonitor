@@ -1,5 +1,8 @@
-import { PerformanceEntryCallBack } from "../types"
+import { PerformanceEntryCallBack } from '../types'
 
+/**
+ * 逐一监听 PerformanceEntry
+ */
 export const observe = (
   type: string,
   callback: PerformanceEntryCallBack
