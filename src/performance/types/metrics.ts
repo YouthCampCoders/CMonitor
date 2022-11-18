@@ -1,3 +1,7 @@
+import { MetricsRating } from "../config"
+
+export type MetricsRatingCoustomConfig = typeof MetricsRating['x']
+
 export enum MetricsRatingText {
   GOOD = 'good',
   ACCEPTABLE = 'acceptable',
@@ -22,3 +26,4 @@ export interface IMetrics {
    */
   rating?: MetricsRatingText
 }
+

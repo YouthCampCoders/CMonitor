@@ -1,8 +1,10 @@
-import { CallAble } from './callbacks'
+import { CallableObject } from './callbacks'
 
 export * from './callbacks'
+export * from './metrics'
+export * from './report'
 
 export interface IPerformanceMetricsConfig {
-  reportCallback?: CallAble
+  reportCallback?: CallableObject
   immediately?: boolean
 }

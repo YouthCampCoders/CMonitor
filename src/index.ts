@@ -14,8 +14,13 @@ const lib: ITest = {
 }
 
 const p = new PerformanceMetrics()
+p.startMark('a')
 setTimeout(() => {
   p.endMark('a')
 }, 2000)
+
+setTimeout(() => {
+  console.log(p.getAllMetricsInStore())
+}, 5000)
 
 console.log(lib.format)

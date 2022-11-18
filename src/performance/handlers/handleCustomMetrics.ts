@@ -1,64 +1,47 @@
 import { IMetrics } from '../types/metrics'
-import { isPerformanceSupported, NotSupportedError } from '../utils'
 
-export class CustomerMetricsHandler {
+const __start__ = (mark: string) => `${mark}__s__`
+const __end__ = (mark: string) => `${mark}__e__`
+
+export class CustomMetricsHandler {
+  // 不可被当作构造函数
   private constructor() {
     return null
   }
 
   private static hasMark(mark: string) {
-    if (!isPerformanceSupported()) {
-      return console.error(NotSupportedError('Performance object').message)
-    }
-
     return performance.getEntriesByName(mark).length > 0
   }
 
   private static getMark(mark: string) {
-    if (!isPerformanceSupported()) {
-      return console.error(NotSupportedError('Performance object').message)
-    }
-
     return performance.getEntriesByName(mark).pop()
   }
 
   private static setMark(mark: string) {
-    if (!isPerformanceSupported()) {
-      return console.error(NotSupportedError('Performance object').message)
-    }
-
     return performance.mark(mark)
   }
 
   private static measure(mark: string) {
-    if (!isPerformanceSupported()) {
-      return console.error(NotSupportedError('Performance object').message)
-    }
-
-    performance.measure(mark, `${mark}__s__`, `${mark}__e__`)
+    performance.measure(mark, __start__(mark), __end__(mark))
     return performance.getEntriesByName(mark).pop()
   }
 
   private static clearMark(mark: string) {
-    if (!isPerformanceSupported()) {
-      return console.error(NotSupportedError('Performance object').message)
-    }
-
     return performance.clearMarks(mark)
   }
 
   static setStartMark(mark: string) {
-    this.setMark(`${mark}__s__`)
+    this.setMark(__start__(mark))
   }
 
   static setEndMark(mark: string) {
-    this.setMark(`${mark}__e__`)
+    this.setMark(__end__(mark))
 
-    if (this.hasMark(`${mark}__s__`)) {
+    if (this.hasMark(__start__(mark))) {
       const entry = this.measure(mark)
 
-      this.clearMark(`${mark}__s__`)
-      this.clearMark(`${mark}__e__`)
+      this.clearMark(__start__(mark))
+      this.clearMark(__end__(mark))
 
       const metric: IMetrics = {
         name: mark,

@@ -3,11 +3,14 @@ import { onShow } from './utils/pageLifeCycle'
 import { createReporter } from './utils/reporter'
 import { IPerformanceMetricsConfig } from './types'
 import { MetricsStore } from './store'
+import { NotSupportedError, isPerformanceSupported } from './utils'
+import { getMetricsRating } from './utils/rating'
+import { MetricsRating } from './config'
 
 export class PerformanceMetrics {
+  private store: MetricsStore = new MetricsStore()
   instance: PerformanceMetrics
   reporter: ReturnType<typeof createReporter>
-  store: MetricsStore = new MetricsStore()
   immediately = true
 
   constructor(config: IPerformanceMetricsConfig = {}) {
@@ -36,21 +39,47 @@ export class PerformanceMetrics {
    * 自定义指标 startMark
    */
   startMark(mark: string) {
-    handlers.CustomerMetricsHandler.setStartMark(mark)
+    if (!isPerformanceSupported()) {
+      return console.error(NotSupportedError('Performance object').message)
+    }
+
+    handlers.CustomMetricsHandler.setStartMark(mark)
   }
 
   /**
    * 自定义指标 endMark
    */
-  endMark(mark: string) {
-    const metric = handlers.CustomerMetricsHandler.setEndMark(mark)
+  endMark(mark: string, ratingConfig?: typeof MetricsRating) {
+    if (!isPerformanceSupported()) {
+      return console.error(NotSupportedError('Performance object').message)
+    }
+
+    const metric = handlers.CustomMetricsHandler.setEndMark(mark)
 
     if (metric) {
+      if (ratingConfig) {
+        metric.rating = getMetricsRating(mark, metric.value, ratingConfig)
+      }
+
       this.store.setState(mark, metric)
 
       if (this.immediately) {
         this.reporter(metric)
       }
     }
+  }
+
+  /**
+   * 获取 store 种所有 metrics
+   * */
+  getAllMetricsInStore() {
+    return this.store.getAllValues()
+  }
+
+  /**
+   * 清除 store 种所有 metrics
+   * */
+  clearAllMetricsInStore() {
+    this.store.clearState()
   }
 }
