@@ -1,4 +1,4 @@
-import { MetricsRating } from "../config"
+import { MetricsRating } from '../config'
 
 export type MetricsRatingCoustomConfig = typeof MetricsRating['x']
 
@@ -27,3 +27,15 @@ export interface IMetrics {
   rating?: MetricsRatingText
 }
 
+export interface IPerformanceNavigationTiming {
+  redirect?: number // 重定向耗时
+  request?: number // 请求耗时
+  response?: number // 响应耗时
+  DOMReady?: number // DOM 就绪耗时
+  DOMParse?: number // DOM 解析耗时
+  resource?: number // 资源加载耗时
+  dns?: number
+  tcp?: number
+  ssl?: number
+  TTFB?: number // Time To First Byte
+}

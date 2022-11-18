@@ -13,6 +13,13 @@ export const isPerformanceObserverSupported = () => {
 }
 
 /**
+ * 检测当前环境是否支持 performance.timing
+ */
+export const isPerformanceTimingSupported = () => {
+  return Boolean(window?.performance?.timing)
+}
+
+/**
  * 检查支持情况报错
  */
 export const NotSupportedError = (target: string): Error => {

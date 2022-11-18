@@ -9,9 +9,8 @@ import { MetricsRating } from './config'
 
 export class PerformanceMetrics {
   private store: MetricsStore = new MetricsStore()
-  instance: PerformanceMetrics
-  reporter: ReturnType<typeof createReporter>
-  immediately = true
+  private reporter: ReturnType<typeof createReporter>
+  private immediately = true
 
   constructor(config: IPerformanceMetricsConfig = {}) {
     const { reportCallback = console.log, immediately = true } = config
@@ -28,10 +27,11 @@ export class PerformanceMetrics {
    * 初始化各个指标的获取
    */
   initHandlers() {
-    const { handleInitFCP } = handlers
+    const { handleInitFCP, handleInitNT } = handlers
 
     onShow(() => {
       handleInitFCP(this.reporter, this.store, this.immediately)
+      handleInitNT(this.reporter, this.store, this.immediately)
     })
   }
 
