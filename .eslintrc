@@ -24,6 +24,6 @@
     "@typescript-eslint/no-shadow": "off",
     "@typescript-eslint/naming-convention": "off",
     "@typescript-eslint/no-var-requires": "off",
-    "prettier/prettier": "off"
+    "prettier/prettier": "error"
   }
 }
