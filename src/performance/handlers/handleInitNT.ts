@@ -5,7 +5,8 @@ import {
   isPerformanceSupported,
   isPerformanceTimingSupported,
   NotSupportedError,
-  formatNumberDigit
+  formatNumberDigit,
+  getMetricsRating
 } from '../utils'
 import { IPerformanceNavigationTiming } from '../types'
 import { observe } from '../utils/observe'
@@ -116,7 +117,8 @@ export const handleInitNT = async (
       ({
         name: MetricsName.TTFB,
         entry: metric.entry,
-        value: metric.value?.TTFB
+        value: metric.value?.TTFB,
+        rating: getMetricsRating(MetricsName.TTFB, metric.value?.TTFB)
       } as IMetrics)
 
     if (immediately) {

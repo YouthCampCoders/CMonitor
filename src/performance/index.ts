@@ -1,5 +1,5 @@
 import * as handlers from './handlers'
-import { onShow } from './utils/pageLifeCycle'
+import { onShow, AfterLoadOrShow } from './utils/pageLifeCycle'
 import { createReporter } from './utils/reporter'
 import { IPerformanceMetricsConfig } from './types'
 import { MetricsStore } from './store'
@@ -27,10 +27,14 @@ export class PerformanceMetrics {
    * 初始化各个指标的获取
    */
   initHandlers() {
-    const { handleInitFCP, handleInitNT } = handlers
+    const { handleInitFCP, handleInitNT, handleInitFID } = handlers
 
     onShow(() => {
       handleInitFCP(this.reporter, this.store, this.immediately)
+    })
+
+    AfterLoadOrShow(() => {
+      handleInitFID(this.reporter, this.store, this.immediately)
       handleInitNT(this.reporter, this.store, this.immediately)
     })
   }

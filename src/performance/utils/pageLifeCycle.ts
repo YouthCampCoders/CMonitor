@@ -44,3 +44,14 @@ export const getFirstHiddenTime = () => {
 export const onShow = (callback: EventCallBack, once = true) => {
   addEventListener('pageshow', callback, { once, capture: true })
 }
+
+/**
+ * 已经加载完的情况下直接执行 未加载完在 pageshow种执行
+ */
+export const AfterLoadOrShow = (callback: EventCallBack, once = true) => {
+  if (document.readyState === 'complete') {
+    setTimeout(callback)
+  } else {
+    addEventListener('pageshow', callback, { once, capture: true })
+  }
+}
