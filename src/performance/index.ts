@@ -27,12 +27,18 @@ export class PerformanceMetrics {
    * 初始化各个指标的获取
    */
   initHandlers() {
-    const { handleInitFCP, handleInitNT, handleInitFID, handleInitLCP } =
-      handlers
+    const {
+      handleInitFCP,
+      handleInitNT,
+      handleInitFID,
+      handleInitLCP,
+      handleInitCLS
+    } = handlers
 
     const CommonArg = [this.reporter, this.store, this.immediately] as const
 
     handleInitLCP(...CommonArg)
+    handleInitCLS(...CommonArg)
 
     onShow(() => {
       handleInitFCP(...CommonArg)

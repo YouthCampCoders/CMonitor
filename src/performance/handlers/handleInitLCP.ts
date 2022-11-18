@@ -32,6 +32,7 @@ const getLCPEntry = (): Promise<PerformanceEntry> => {
       }
 
       const po = observe('largest-contentful-paint', entryHandler)
+
       let curEntry = {} as PerformanceEntry
 
       // 隐藏页面或用户交互后停止监听

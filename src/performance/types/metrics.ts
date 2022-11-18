@@ -39,3 +39,16 @@ export interface IPerformanceNavigationTiming {
   ssl?: number
   TTFB?: number // Time To First Byte
 }
+
+export interface LayoutShiftAttribution {
+  node?: Node
+  previousRect: DOMRectReadOnly
+  currentRect: DOMRectReadOnly
+}
+
+export interface ILayoutShift extends PerformanceEntry {
+  value: number
+  sources: LayoutShiftAttribution[]
+  hadRecentInput: boolean
+  total: number
+}
