@@ -1,6 +1,8 @@
 const { build } = require('esbuild')
 const { resolve } = require('path')
 const args = require('minimist')(process.argv.slice(2))
+const bs = require('browser-sync')
+const { watchConfig, initConfig } = require('./config/browser-sync.config')
 
 // 打包格式
 const format = args.f || 'global'
@@ -36,3 +38,7 @@ build({
 }).then(() => {
   console.log('watching⚡⚡⚡')
 })
+
+// 自动打开浏览器
+bs.init(initConfig)
+bs.watch(watchConfig.list).on('change', watchConfig.eventCallback['change'])
